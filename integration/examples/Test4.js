@@ -9,6 +9,7 @@ describe('My Second Test', function() {
         // window:alert
         cy.on('window:alert', (str) =>
         {
+            // Mocha
             expect(str).to.equal('Hello , share this practice page and share your knowledge')
         })
 
@@ -16,6 +17,12 @@ describe('My Second Test', function() {
         {
             expect(str).to.equal('Hello , Are you sure you want to confirm?')
         })
+
+        cy.get('#opentab').invoke('removeAttr', 'target').click()
+
+        cy.url().should('include', 'rahulshettyacademy')
+
+        cy.go('back')
 
 
     })
