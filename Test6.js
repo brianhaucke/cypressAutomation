@@ -2,7 +2,8 @@
 
 describe('My Sixth Test', function() {
     it('My Sixth Test case', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
+        //cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
+        cy.visit(Cypress.env('url')+'/AutomationPractice/')
 
         //Scan existing table
         //Iterate

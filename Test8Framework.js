@@ -4,6 +4,8 @@ import Products
  from "../pageObjects/Products"
 
 
+
+
 describe('My Framework Test', function(){
 
     before(function(){ // runs once before all tests in the block
@@ -20,7 +22,8 @@ describe('My Framework Test', function(){
         const homePage = new HomePage()
         const products = new Products()
 
-        cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        //cy.visit('https://rahulshettyacademy.com/angularpractice/')
+        cy.visit(Cypress.env('url')+'/angularpractice/')
 
         // *** Replacing all these with HomePage.js methods ***
 
@@ -46,6 +49,30 @@ describe('My Framework Test', function(){
 
         //cy.get('#navbarResponsive > .navbar-nav > .nav-item > .nav-link').click()
         products.checkoutButton().click()
+
+        var sum=0
+
+        cy.get('tr td:nth-child(4) strong').each(($el, index, $list) => {
+            const amount = $el.text()
+            //cy.log($el.text())
+            var res = amount.split(" ")
+            res = res[1].trim()
+            sum = Number(sum) + Number(res)
+            cy.log(res)
+            
+        }).then(function()
+        {
+            cy.log(sum)
+        })
+        cy.get('h3 > strong').then(function(element)
+        {
+            const amount = element.text()
+            var res = amount.split(" ")
+            var total = res[1].trim()
+            expect(Number(total)).to.equal(sum)
+        })
+        
+
         cy.contains('Checkout').click()
         cy.get('#country').type('India')
     
